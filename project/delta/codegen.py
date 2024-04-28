@@ -86,6 +86,23 @@ class CodeGenerationVisitor(PTNodeVisitor):
             '    i32.const 0\n'
             '    end\n' * (len(children) - 1))
         return ''.join(result)
+    
+    def visit_comparison(self, node, children):
+        if len(children) == 1:
+            return children[0]
+        result = [children[0]]
+        operations = {
+            "==": "    i32.eq\n",
+            "!=": "    i32.ne\n",
+            "<": "    i32.lt_s\n",
+            "<=": "    i32.le_s\n",
+            ">=": "    i32.ge_s\n",
+            ">": "    i32.gt_s\n"
+        }
+        for i in range(1, len(children), 2):
+            result.append(children[i + 1])
+            result.append(operations[children[i]])
+        return ''.join(result)
 
 
     def visit_additive(self, node, children):

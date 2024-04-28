@@ -1,0 +1,16 @@
+from delta import Compiler, Phase
+
+source = '''
+1 + 2 * 3 / 4 <= 2 < 3 == 1 != 2 >= 3 > 2
+'''
+
+c = Compiler('program')
+c.realize(source, Phase.CODE_GENERATION)
+print()
+print(c.parse_tree_str)
+# print()
+# print(c.symbol_table)
+print()
+print(c.wat_code)
+# print()
+# print(c.result)

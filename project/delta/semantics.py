@@ -23,14 +23,26 @@ class SemanticVisitor(PTNodeVisitor):
     def symbol_table(self):
         return self.__symbol_table
 
-    def visit_decimal(self, node, children):
-        value = int(node.value)
+    def visit_integer(self, node, children):
+        value = int(children[0])
         if value >= 2 ** 31:
             raise SemanticMistake(
                 'Out of range decimal integer literal at position '
                 f'{self.position(node)} => { value }'
             )
         
+    def visit_decimal(self, node, children):
+        return node.value
+    
+    def visit_binary(self, node, children):
+        return str(int(node.value[2:], 2))
+    
+    def visit_octal(self, node, children):
+        return str(int(node.value[2:], 8))
+    
+    def visit_hexadecimal(self, node, children):
+        return str(int(node.value[2:], 16))
+
     def visit_decl_variable(self, node, children):
         name = node.value
         if name in SemanticVisitor.RESERVED_WORDS:

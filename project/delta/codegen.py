@@ -131,9 +131,24 @@ class CodeGenerationVisitor(PTNodeVisitor):
                     result += '    i32.eqz\n'
         return result
 
+    def visit_integer(self, node, children):
+        return children[0]
+
     def visit_decimal(self, node, children):
         return f'    i32.const { node.value }\n'
     
+    def visit_binary(self, node, children):
+        integer = int(node.value[2:], 2)
+        return f'    i32.const { integer }\n'
+    
+    def visit_octal(self, node, children):
+        integer = int(node.value[2:], 8)
+        return f'    i32.const { integer }\n'
+    
+    def visit_hexadecimal(self, node, children):
+        integer = int(node.value[2:], 16)
+        return f'    i32.const { integer }\n'
+
     def visit_boolean(self, node, children):
         const = 0
         if children[0] == 'true':

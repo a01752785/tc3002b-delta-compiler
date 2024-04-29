@@ -10,7 +10,8 @@ dowhile = 'do' block 'while' expression ';'
 block = '{' statement* '}' 
 lhs_variable = identifier
 identifier = r'[a-zA-Z]\w*'
-expression = comparison ('&&' comparison)*
+expression = andexpression ('||' andexpression)*
+andexpression = comparison ('&&' comparison)*
 comparison = additive ((r'(==)' / r'(!=)' / r'(>=)' / r'(>)' / r'(<=)' / r'(<)') additive)*
 additive = multiplicative (('+' / '-') multiplicative)*
 multiplicative = unary (('*' / '/' / '%') unary)*

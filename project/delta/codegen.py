@@ -60,6 +60,15 @@ class CodeGenerationVisitor(PTNodeVisitor):
         result += '    end\n' * (if_count)
         return result
     
+    def visit_dowhile(self, node, children):
+        return (
+            '    loop\n'
+            + children[0]
+            + children[1]
+            + '    br_if 0\n'
+            + '    end\n'
+        )
+
     def visit_while(self, node, children):
         return (
             '    block\n'

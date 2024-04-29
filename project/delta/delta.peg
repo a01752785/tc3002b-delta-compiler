@@ -1,11 +1,12 @@
 comments = r'[/][/].*|[/][*](.|\n)*?[*][/]'
 program = statement* expression EOF
-statement = declaration / assignment / if / while
+statement = declaration / assignment / if / while / dowhile
 declaration = 'var' decl_variable (',' decl_variable)* ';'
 decl_variable = identifier
 assignment = lhs_variable '=' expression ';'
 if = 'if' expression block ('else if' expression block)* (r'else' block)?
 while = 'while' expression block
+dowhile = 'do' block 'while' expression ';'
 block = '{' statement* '}' 
 lhs_variable = identifier
 identifier = r'[a-zA-Z]\w*'

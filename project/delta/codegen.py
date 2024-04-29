@@ -37,14 +37,27 @@ class CodeGenerationVisitor(PTNodeVisitor):
         return children[1] + children[0]
     
     def visit_if(self, node, children):
+        if_count = 1
         result = (children[0]
                   + '    if\n'
                   + children[1])
         if len(children) > 2:
-            result += (
-                '    else\n'
-                + children[2])
-        result += '    end\n'
+            
+            for i in range(2, len(children), 2):
+                if children[i] == 'else':
+                    result += (
+                        '    else\n'
+                        + children[i + 1])
+                else:
+                    if_count = if_count + 1
+                    result += (
+                        '    else\n'
+                        + children[i]
+                        + '    if\n'
+                        + children[i + 1]
+                    )
+
+        result += '    end\n' * (if_count)
         return result
     
     def visit_while(self, node, children):

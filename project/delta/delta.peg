@@ -4,7 +4,7 @@ statement = declaration / assignment / if / while
 declaration = 'var' decl_variable (',' decl_variable)* ';'
 decl_variable = identifier
 assignment = lhs_variable '=' expression ';'
-if = 'if' expression block ('else' block)?
+if = 'if' expression block ('else if' expression block)* (r'else' block)?
 while = 'while' expression block
 block = '{' statement* '}' 
 lhs_variable = identifier

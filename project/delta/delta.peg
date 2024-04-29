@@ -1,3 +1,5 @@
+// Author: A01752785 David Damian Galan
+
 comments = r'[/][/].*|[/][*](.|\n)*?[*][/]'
 program = statement* expression EOF
 statement = declaration / assignment / if / while / dowhile
